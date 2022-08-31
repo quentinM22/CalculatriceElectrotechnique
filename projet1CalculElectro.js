@@ -20,18 +20,17 @@ function reload(saisie) {
 
 while (reloadWindow == true) {
   let choose = prompt(
-    // tension tapez(U ou V) / intensité tapez(I) / résitance tapez(R)/
-    "Que voulez-vous calculez ? (puissance tapez(P), rendement moteur(Re), Tension(U ou V))"
+    "Que voulez-vous calculez ? (puissance tapez(P), rendement moteur(Re), Tension(U ou V), Intensité (I))"
   );
   while (
     choose.toUpperCase() != "U" &&
-    //   choose.toUpperCase() != "I" &&
+    choose.toUpperCase() != "I" &&
     choose.toUpperCase() != "RE" &&
     choose.toUpperCase() != "P"
   ) {
     choose = prompt(
-      // intensité tapez(I) / résitance tapez(R)/
-      "Je n'es pas compris! Que voulez-vous calculez ? (puissance tapez(P), rendement moteur(Re), Tension(U))"
+      //
+      "Je n'es pas compris! Que voulez-vous calculez ? (puissance tapez(P), rendement moteur(Re), Tension(U), Intensité (I))"
     );
   }
 
@@ -87,7 +86,7 @@ while (reloadWindow == true) {
 
       let Pu = verif(prompt("Ajouter Puissance Utile en Watt"));
       let eta = Pu / Pa;
-      while (eta == 0 || eta > 1) {
+      while (eta < 0 || eta > 1) {
         U = verif(prompt("Ajouter Tension en Volt"));
         I = verif(prompt("Ajouter Intensité en Ampère"));
         cosPhi = verif(prompt("Ajouter Cos\u03c6 du moteur"));
@@ -121,10 +120,15 @@ while (reloadWindow == true) {
       let P = verif(prompt("Ajouter Puissance en Watt"));
       let I = verif(prompt("Ajouter l'intensité en Ampère"));
       let U = P / I;
-      alert(`calcul U = P x I -> U = ${P} x ${I}  résultat ${U.toFixed(1)}V`);
+      alert(`calcul U = P / I -> U = ${P} / ${I}  résultat ${U.toFixed(1)}V`);
     }
+  } else if (choose.toUpperCase() == "I") {
+    let P = verif(prompt("Ajouter Puissance en Watt"));
+    let U = verif(prompt("Ajouter la Tension en Volt"));
+    let I = P / U;
+    alert(`calcul I = P / U -> I = ${P} / ${U}  résultat ${I.toFixed(1)}A`);
   }
   let reloadQuestion = reload(
-    prompt("Voulez vous continuer à faire des calcul o/n")
+    prompt("Voulez vous continuer à faire des calculs o/n")
   );
 }
